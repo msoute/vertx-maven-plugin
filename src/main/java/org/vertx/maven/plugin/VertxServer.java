@@ -16,14 +16,14 @@ package org.vertx.maven.plugin;
  * limitations under the License.
  */
 
-import org.vertx.java.deploy.impl.cli.Starter;
+import org.vertx.java.platform.impl.cli.Starter;
 
 import java.util.List;
 
 public class VertxServer {
 
     private static final String VERTX_RUN_COMMAND = "run";
-    
+
     private static final String VERTX_RUNMOD_COMMAND = "runmod";
 
     private void run(final List<String> serverArgs, boolean daemon) {
@@ -34,9 +34,9 @@ public class VertxServer {
                 Starter.main(args);
             }
         }, "Vertx Manager Thread");
-        
+
         managerThread.start();
-        
+
         if (!daemon) {
             try {
                 managerThread.join();
@@ -46,15 +46,15 @@ public class VertxServer {
             }
         }
     }
-    
+
     public void runVerticle(final List<String> serverArgs, boolean daemon) {
         serverArgs.add(0, VERTX_RUN_COMMAND);
         this.run(serverArgs, daemon);
     }
-    
+
     public void runModule(final List<String> serverArgs, boolean daemon) {
         serverArgs.add(0, VERTX_RUNMOD_COMMAND);
         this.run(serverArgs, daemon);
     }
-    
+
 }
